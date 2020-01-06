@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background: #111;
+  margin:0;
+  font-family: Inconsolata;
+}
+
+.main {
+  display: grid;
+  grid-template-areas: 
+  "photo main ."
+  "photo main links"
+  "photo main .";
+  grid-template-columns: 1fr 1fr 100px;
+}
+
+.image-box {
+  width: 400px;
+  border-radius: 30px;
+  align-self: center;
+}
+
+.main-photo {
+  grid-area: photo;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.main-me {
+  grid-area: main;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10vh;
+  padding-bottom: 0;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+.left {
+  text-align: left;
+  margin-left: 30px;
+}
+
+.right{
+  text-align: right;
+  margin-right: 30px;
+}
+
+.bottom{
+  position: fixed;
+  bottom: 0;
+  margin-left: 30px;
+  font-size: 8px;
+}
+
+.main-links {
+  grid-area: links;
+  display: flex;
+}
+
+.main-links ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-links li a {
+  display: block;
+  width: 100px;
+  align-self: center;
+  color: #f1f1f1;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.main-links li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+
+
