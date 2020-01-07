@@ -2,44 +2,11 @@
 
 body {
   width: 100vw;
-  height: 100vh;
-  background: #111;
+  background: #f1f1f1;
   margin:0;
   font-family: Inconsolata;
 }
-
-.main {
-  display: grid;
-  grid-template-areas: 
-  "photo main ."
-  "photo main links"
-  "photo main .";
-  grid-template-columns: 1fr 1fr 100px;
-}
-
-.image-box {
-  width: 400px;
-  border-radius: 30px;
-  align-self: center;
-}
-
-.main-photo {
-  grid-area: photo;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-}
-
-.main-me {
-  grid-area: main;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10vh;
-  padding-bottom: 0;
-  text-align: center;
-  background-color: #f1f1f1;
-}
-
+  
 .left {
   text-align: left;
   margin-left: 30px;
@@ -49,16 +16,56 @@ body {
   text-align: right;
   margin-right: 30px;
 }
+ 
 
-.bottom{
-  position: fixed;
-  bottom: 0;
-  margin-left: 30px;
-  font-size: 8px;
+.hidden{
+  visibility: hidden;
+}
+
+.main {
+  display: grid;
+  grid-template-areas:
+  "image links"
+  "main main";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows; 20vh 70vh;
+}
+
+.image-box {
+  width: 40vw;
+  border-radius: 20%;
+  align-self: center;
+}
+
+.main-photo{
+  grid-area: image;
+  display: flex;
+  justify-content: center;
+  background-color: #111;
+}
+
+
+.main-me {
+  grid-area: main;
+  height: 80vh;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  background-color: #f1f1f1;
+  overflow: scroll;
 }
 
 .main-links {
   grid-area: links;
+  display: flex;
+  height: 50vh;
+  background-color: #111;
+}
+.main-links li {
+  float: left;
+  align-self: center;
+  height: 25vh;
   display: flex;
 }
 
@@ -70,19 +77,107 @@ body {
 
 .main-links li a {
   display: block;
-  width: 100px;
+  width: 25vw;
   align-self: center;
   color: #f1f1f1;
-  padding-top: 40px;
-  padding-bottom: 40px;
   text-decoration: none;
   text-align: center;
 }
 
-.main-links li a:hover:not(.active) {
-  background-color: #555;
-  color: white;
+
+@media only screen and (min-width: 700px) {
+
+  * {
+    overflow: hidden;
+  }
+
+
+  .hidden{
+    visibility: visible;
+  }
+
+  .main {
+    display: grid;
+    grid-template-areas: 
+    "photo main ."
+    "photo main links"
+    "photo main .";
+    grid-template-columns: 1fr 1fr 100px;
+  }
+  
+  .image-box {
+    width: 400px;
+    height: auto;
+    border-radius: 30px;
+    margin-left: 0;
+  }
+  
+  .main-photo {
+    grid-area: photo;
+    height: 100vh;
+    width: auto;
+  }
+  
+  .main-me {
+    grid-area: main;
+    height: 100vh;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: center;
+    background-color: #f1f1f1;
+  }
+
+  .main-me-middle {
+    margin-top: 15vh;
+    margin-bottom: 15vh;
+  }
+  
+  .main-me::-webkit-scrollbar {
+    display: none;
+  }
+  .main-me-middle::-webkit-scrollbar {
+    display: none;
+  }
+ 
+  .bottom{
+    position: fixed;
+    bottom: 0;
+    margin-left: 30px;
+    font-size: 8px;
+  }
+  
+  .main-links {
+    grid-area: links;
+    height: 100vh;
+    background-color: #111;
+    display: flex;
+  }
+  
+  .main-links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+  }
+  
+  .main-links li a {
+    display: block;
+    width: 100px;
+    height: auto;
+    align-self: center;
+    color: #f1f1f1;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .main-links li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
+
 }
-
-
 
