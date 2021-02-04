@@ -1,44 +1,51 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="index.css">
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-photo">
-        <img class="image-box" src="./profile.jpeg" >
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Volkan Un</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css"> 
+</head>
+
+<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background: #111;">
+  <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
+  <div id="profile" class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-90 mx-6 lg:mx-0">
+    <div class="p-4 md:p-12 text-center lg:text-left">
+      <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center" style="background-image: url(./profile.jpeg)"></div>
+      <h1 class="text-3xl font-bold pt-8 lg:pt-0">Volkan Ün</h1>
+      <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
+      <p class="pt-8 text-sm">Hi, I'm a <strong>Mathematician, Data Scientist, Web Developer, Kaggler, and occasional Baduk(Go) player.</strong> I love learning, developing and researching.</p>
+			<div class="pt-12 pb-8">
+        <button class="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full" >            
+          <a href="mailto:volkan.un@outlook.com">Mail me.</a>
+        </button> 
       </div>
-      <div class="main-me">
-        <div class="main-me-middle">
-          <p class="left" >Hey!</p>
-          <p class="left">I'm Volkan.</p>
-          <p class="right" >I study Mathematics at Hacettepe University</p>
-          <p class="right" >I love coding</p>
-          <p class="right" >I love art</p>
-          <p class="right" >I love fantastic literature</p>
-          <p class="right" >I live in Ankara, Turkey.</p>
-          <p class="left" >What I am trying to learn:</p>
-          <p class="right" >Machine Learning</p>
-          <p class="right" >Mathematical Finance</p>
-          <p class="left">What I do:</p>
-          <p class="right" >Back-end development</p>
-          <p class="right" >Front-end development</p>
-          <p class="right" >DevOps</p>
-          <p class="left">What I do really good:</p>
-          <p class="right" >Mathematics</p>
-          <p class="bottom hidden" >Btw I use Arch.</p>
-        </div>
-      </div>
-      <div class="main-links ">
-        <ul>
-          <li><a href="https://github.com/volkn" target="_blank">GitHub</a></li>
-          <li><a href="https://medium.com/@volkn" target="_blank">Medium</a></li>
-          <li><a href="https://www.linkedin.com/in/volkan-un" target="_blank">Linkedin</a></li>
-          <li><a href="./curriculum-vitae.pdf" target="_blank">CV</a></li>
-        </ul>
+      <div class="mt-6 pb-16 lg:pb-0 w-4/5 lg:w-full mx-auto flex flex-wrap items-center justify-between">
+        <a class="link" href="https://www.linkedin.com/in/volkan-un" >
+          <i style="background-color: #111;" class="flex items-center justify-center h-12 w-12 mx-1 rounded-full fab fill-current text-white text-xl fa-linkedin"></i>
+        </a>
+        <a class="link" href="./curriculum-vitae.pdf" >
+          <i style="background-color:#111;" class="flex items-center justify-center h-12 w-12 mx-1 rounded-full fas fill-current text-white text-xl fa-file"></i>
+        </a>
+        <a class="link" href="https://github.com/volkn" >
+          <i style="background-color:#111;" data-tippy-content="@github_handle" class="flex items-center justify-center h-12 w-12 mx-1 rounded-full fab fill-current text-white text-xl fa-github"></i>
+        </a>
+        <a class="link" href="https://medium.com/@volkn" >
+          <i style="background-color:#111;" class="flex items-center justify-center h-12 w-12 mx-1 rounded-full fab fill-current text-white text-xl fa-medium-m"></i>
+        </a>
       </div>
     </div>
-  </body>
+  </div>
+  <div class="w-full lg:w-2/5">
+    <img src="./profile.jpeg" class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
+  </div>
+  </div>
+</body>
+
 </html>
