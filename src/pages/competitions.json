@@ -1,0 +1,109 @@
+{
+  "Cassava": {
+    "companyName": "Kaggle Challange - Cassava Leaf Disease Classification",
+    "role": "Silver Medal winner",
+    "dates": "Nov 2020 - Feb 2021",
+    "skills": [
+      "Tensorflow",
+      "Pytorch",
+      "Transfer Learning",
+      "ResNext",
+      "EfficientNets",
+      "TPU's"
+    ],
+    "projects": [
+      {
+        "client": "Kaggle Competiton on leaf disease classification.",
+        "workDetails": [
+          "I have won my first medal(silver) with this competition",
+          "I finished competiton at 104th place out of 3947."
+        ]
+      }
+    ]
+  },
+  "RIID": {
+    "companyName": "Kaggle Challange - Riiid Answer Correctness Prediction",
+    "role": "Competitor",
+    "dates": "Oct 2020 - Jan 2021",
+    "skills": [
+      "Tensorflow",
+      "Attention Mechanism",
+      "Encoder-Decoder Mechanism",
+      "LSTM",
+      "Transformer Models",
+      "Positional Encoding",
+      "Cudf",
+      "AUC Score Optimization"
+    ],
+    "projects" : [
+      {
+        "client": "Kaggle competition on knowlage tracing.",
+        "workDetails": [
+          "This was my first timeseries data experience. I wanted to learn about positional encoding and attention mechanism. It was a good experience.",
+          "I finished competition at 1037th out of 3395."
+        ]
+      }
+    ]
+  },
+  "MoA": {
+    "companyName": "Kaggle Challange - Mechanisms of Action (MoA) Prediction",
+    "role": "Competitor",
+    "dates": "Sep 2020 - Dec 2020",
+    "skills": [
+      "Tensorflow",
+      "PyTorch",
+      "Kmeans",
+      "PCA",
+      "Label Smoothing",
+      "Log Loss Optimization"
+    ],
+    "projects" : [
+      {
+        "client": "Kaggle competition on drug classification based on biological activity",
+        "workDetails": [
+          "Because of the uneven data I learned a lot of things on real world applications of different statistical tecniques.",
+          "I finished competition at 1690th out of 4373."
+        ]
+      }
+    ]
+  },
+  "OSIC": {
+    "companyName": "Kaggle Challange - OSIC Pulmonary Fibrosis Progression",
+    "role": "Competitor",
+    "dates": "July 2020 - Oct 2020",
+    "skills": [
+      "Tensorflow",
+      "Quantile Regression",
+      "Medical Dataset",
+      "Bayesian Leaning",
+      "ResNet",
+      "Custom Loss Functions"
+    ],
+    "projects": [
+      {
+        "client": "Kaggle Competiton on lung diseases",
+        "workDetails": [
+          "This was my first kaggle challenge.",
+          "I had a submission that would place me in 177 place in the competition but I was a new to kaggle at that point.", 
+          "I finished competiton at 1431st place out of 2097."
+        ]
+      }
+    ]
+  },
+  "ERC": {
+    "companyName": "European Rover Challenge",
+    "role": "Head of Programming Team",
+    "dates": "Oct 2018 - May 2019",
+    "skills": [
+    ],
+    "projects": [
+      {
+        "client": "With my friends at Hacettepe University Robotics Society, we attempt to build a mars rover for European Rover Challenge.",
+        "workDetails": [
+          "Autonomous driving.",
+          "Object Detection"
+        ]
+      }
+    ]
+  }
+}

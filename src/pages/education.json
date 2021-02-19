@@ -1,0 +1,26 @@
+{
+  "Bachelor": {
+    "companyName": "Mathematics",
+    "role": "Hacettepe University",
+    "dates": "Oct 2016 - Feb 2021",
+    "skills": [
+    ],
+    "projects": [
+      {
+        "client": "Graduated with 2.83 out of 4.00. You can find a list of things that I'm good at and enjoy working with:",
+        "workDetails": [
+          "Topology",
+          "Functional Analysis",
+          "Analysis",
+          "Linaer Algebra",
+          "Fuzzy Logic",
+          "Probability Theory",
+          "Measure Theory",
+          "ODE, PDE's",
+          "Complex Analysis",
+          "Hyperbolic Geometry"
+        ]
+      }
+    ]
+  }
+}
