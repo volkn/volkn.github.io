@@ -207,7 +207,7 @@ papertitle {
     }
 
     .image.avatar {
-      border-radius: 100%;
+      border-radius: 0;
     }
 
       .image.avatar:before {
@@ -215,9 +215,12 @@ papertitle {
       }
 
       .image.avatar img {
-        border-radius: 100%;
-        width: 45%;
-        padding: 20px;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 270px;
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto 10px;
         // border: 1px solid #ddd;
         // padding: 3px;
         // box-shadow: 0 -1px 5px 1px rgba(200, 200, 200, 0.3);
@@ -356,7 +359,7 @@ img {
 }
 
 header {
-  width:232px;
+  width:270px;
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
@@ -499,9 +502,11 @@ footer {
 
 
    .image.avatar img {
-        border-radius: 100%;
-        width: 117px;
-        padding:20px;
+        border-radius: 8px;
+        width: 240px;
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto 10px;
       }
   #head1o2 {
     visibility: hidden;
@@ -555,9 +560,11 @@ footer {
   }
 
   .image.avatar img {
-      border-radius: 100%;
-      width: 95px;
-      padding:20px;
+      border-radius: 8px;
+      width: 220px;
+      height: auto;
+      object-fit: contain;
+      margin: 0 auto 10px;
   }
   #head1o2 {
     visibility: hidden;

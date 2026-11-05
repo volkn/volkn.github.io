@@ -3,7 +3,6 @@ title: Volkan Ün
 position: Researcher
 affiliation: Deutsche Telekom Chair of Communication Networks, TU Dresden
 
-email: volkan.un (at) outlook.com
 
 # Search Engine Optimization (SEO)
 keywords: Volkan Ün, robot learning, multi-agent reinforcement learning, spiking neural networks, TU Dresden
@@ -17,8 +16,7 @@ linkedin: https://www.linkedin.com/in/volkan-un/
 kaggle: https://www.kaggle.com/volkan97
 
 # Images
-# Put your photo at assets/img/avatar.jpg and uncomment the next line.
-# avatar: ./assets/img/avatar.jpg
+avatar: ./assets/img/avatar.jpg
 favicon: ./assets/img/favicon.png
 favicon_dark: ./assets/img/favicon-dark.png
 
