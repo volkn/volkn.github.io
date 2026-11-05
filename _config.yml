@@ -1,0 +1,38 @@
+# Basic Information
+title: Volkan Ün
+position: Researcher
+affiliation: Deutsche Telekom Chair of Communication Networks, TU Dresden
+
+email: volkan.un (at) outlook.com
+
+# Search Engine Optimization (SEO)
+keywords: Volkan Ün, robot learning, multi-agent reinforcement learning, spiking neural networks, TU Dresden
+description: Volkan Ün, researcher at TU Dresden working on multi-agent reinforcement learning and spiking neural networks for robotics.
+
+# Links
+google_scholar: https://scholar.google.com/citations?user=jKwU6xQAAAAJ&hl=en
+cv_link: assets/files/VolkanUn-Resume.pdf
+github_link: https://github.com/volkn
+linkedin: https://www.linkedin.com/in/volkan-un/
+kaggle: https://www.kaggle.com/volkan97
+
+# Images
+# Put your photo at assets/img/avatar.jpg and uncomment the next line.
+# avatar: ./assets/img/avatar.jpg
+favicon: ./assets/img/favicon.png
+favicon_dark: ./assets/img/favicon-dark.png
+
+enable_footnote: true
+auto_dark_mode: false
+font: "Sans Serif" # or "Serif"
+
+markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - vendor/
+  - .bundle/
+  - serve.sh

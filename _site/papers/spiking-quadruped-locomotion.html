@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spiking Actor-Critic for Quadrupeds</title>
+  <meta name="description" content="A fully spiking actor-critic for ANYmal-D locomotion, comparing rate, temporal and sampling spike encodings. ETRI Best Paper Award, ISOCC 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/paper.css">
+</head>
+<body>
+  <main class="wrap paper">
+    <a class="back" href="../index.html">← Volkan Ün</a>
+    <h1>Spiking Actor-Critic for Quadruped Locomotion: Spike Encoding Schemes Compared</h1>
+    <p class="authors"><b>Volkan Ün</b>, Juan A. Cabrera, Frank H. P. Fitzek</p>
+    <p class="venue">The 23rd International SoC Conference (ISOCC 2026) · <span class="award">ETRI Best Paper Award</span></p>
+
+    <!-- Drop the award photo at assets/img/award.jpg; it stays hidden until the file exists. -->
+    <figure class="photo" id="award-photo">
+      <img src="../assets/img/award.jpg" alt="Receiving the ETRI Best Paper Award at ISOCC 2026" onerror="document.getElementById('award-photo').remove()">
+      <figcaption>Receiving the ETRI Best Paper Award at ISOCC 2026.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../assets/img/isocc2026.jpg" alt="Robot state is spike-encoded and passed through Linear + LIF layers of a spiking policy that controls an ANYmal-D">
+      <figcaption>Real-valued observations are spike-encoded and processed by a fully spiking policy.</figcaption>
+    </figure>
+
+    <h2>Summary</h2>
+    <p>
+      Spiking neural networks promise energy-efficient, event-driven control on neuromorphic chips. A legged
+      robot's state, however, is a vector of real numbers, so it has to be turned into spikes first. We
+      train a <b>fully spiking</b> actor-critic to make an ANYmal-D walk, and ask how much that encoding
+      step matters.
+    </p>
+
+    <h2>Method</h2>
+    <p>
+      <b>Task.</b> ANYmal-D velocity tracking in Isaac Lab, on flat and rough terrain. The robot observes
+      a 235-dimensional proprioceptive state (velocities, gravity, commands, joint states, previous action,
+      height scan) and outputs 12 joint-position targets.
+    </p>
+    <p>
+      <b>Policy.</b> Three LIF layers (512, 256 and 128 neurons). Each observation is unrolled over 20 spiking
+      timesteps, and a leaky-integrator readout produces the action. The critic uses the same spiking
+      architecture, so both actor and critic stay entirely in the spiking domain. Training uses PPO with 4096
+      parallel environments on one GPU.
+    </p>
+    <p><b>Three encodings</b> of each normalized feature <i>x</i> ∈ [0, 1]:</p>
+    <ul>
+      <li><b>Rate</b>: a deterministic accumulator that fires with average rate <i>x</i>.</li>
+      <li><b>Temporal</b>: a single spike, which comes earlier the larger <i>x</i> is (time-to-first-spike).</li>
+      <li><b>Sampling</b>: at every step, a spike with probability <i>x</i> (Bernoulli).</li>
+    </ul>
+
+    <h2>Results</h2>
+    <p>
+      The encoder turns out to be a decisive design choice, and no single scheme wins everywhere. On
+      <b>flat</b> terrain, rate encoding learns fastest and most stably. On <b>rough</b> terrain the ordering
+      flips and sampling encoding learns best: its input noise hurts on easy ground but seems to aid
+      exploration when the terrain itself adds variability.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/isocc2026/encoding.png" alt="Training reward on flat and rough terrain for rate, temporal and sampling encoding" loading="lazy">
+      <figcaption>Training reward on (a) flat and (b) rough terrain.</figcaption>
+    </figure>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Terrain</th><th>Encoding</th><th>Success (%)</th><th>Reward</th><th>Firing rate</th></tr></thead>
+      <tbody>
+        <tr><td>Flat</td><td>Rate</td><td class="best">77.98</td><td class="best">4.45</td><td>0.083</td></tr>
+        <tr><td>Flat</td><td>Temporal</td><td>0.00</td><td>−1.04</td><td>0.304</td></tr>
+        <tr><td>Flat</td><td>Sampling</td><td>0.27</td><td>−1.18</td><td>0.057</td></tr>
+        <tr><td>Rough</td><td>Rate</td><td>1.42</td><td>−0.50</td><td>0.070</td></tr>
+        <tr><td>Rough</td><td>Temporal</td><td>10.40</td><td>−1.77</td><td>0.130</td></tr>
+        <tr><td>Rough</td><td>Sampling</td><td class="best">20.50</td><td class="best">1.70</td><td>0.066</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>
+      Deterministic evaluation over 128 environments. The best flat-terrain policy fires less than 9% of
+      the time (sparsity &gt; 0.91). It tracks commands accurately with very little neural activity, which
+      is exactly the regime that neuromorphic hardware rewards.
+    </p>
+
+  </main>
+</body>
+</html>

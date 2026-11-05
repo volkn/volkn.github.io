@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learned Communication for Multi-Robot Motion Planning</title>
+  <meta name="description" content="Decentralized PPO policy with a learned communication module for multi-robot motion planning.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/paper.css">
+</head>
+<body>
+  <main class="wrap paper">
+    <a class="back" href="../index.html">← Volkan Ün</a>
+    <h1>Learned Communication for Continuous Multi-Robot Motion Planning</h1>
+    <p class="authors"><b>Volkan Ün</b>, Jonas Schulz, Martin Lelis, Juan A. Cabrera, Stefanie Speidel, Frank H. P. Fitzek</p>
+    <p class="venue">2027 IEEE/SICE International Symposium on System Integration (SII 2027), Kobe, Japan</p>
+
+    <figure>
+      <img src="../assets/img/sii2027.jpg" alt="Agents send environment and communication actions; a communication module feeds a planner. Right: simulated ANYmal-C robots navigating to goals.">
+      <figcaption>Multiple ANYmal-C robots navigate to individual goals while exchanging learned messages.</figcaption>
+    </figure>
+
+    <h2>Summary</h2>
+    <p>
+      When many robots share a workspace and each one only sees its own surroundings, avoiding each other
+      is hard. Our idea is to let them <em>talk</em>: every robot sends a small latent vector to the others,
+      and what goes into that vector is learned rather than hand-designed. One shared policy is trained
+      with proximal policy optimization (PPO), and it learns both what to say and how to move.
+    </p>
+    <p>
+      Compared with an identical policy that cannot communicate, our approach raises the average episode
+      success rate by up to <b>21.2 percentage points</b>. It was trained with four robots only, yet works
+      zero-shot with teams of <b>3 to 14 robots</b>.
+    </p>
+
+    <h2>Method</h2>
+    <p>
+      The actor has two parts. A <b>communication module</b> takes the robot's own observation together with
+      the messages received from the others. It averages the incoming messages and passes them through an
+      LSTM cell and a tanh, which produces the robot's outgoing message. A <b>motion planning module</b>
+      (two fully connected layers) maps this encoding to the control action. The planner is built on top
+      of the message encoding, so gradients flow through the communication module and PPO optimizes
+      talking and moving together. Averaging the messages means the same network handles any team size.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/sii2027/model.png" alt="Actor and critic architectures with the communication estimation functions" loading="lazy">
+      <figcaption>Left: actor (π) and critic (V). Right: the functions that estimate the messages a robot would have received, used during training.</figcaption>
+    </figure>
+    <p>
+      Training is tricky because actions are sampled with noise while the messages must stay consistent.
+      To handle this, we reuse the LSTM and tanh of the communication module to estimate the messages the
+      robot would have received, and then run the actor exactly as at inference time. The critic is
+      handled the same way.
+    </p>
+
+    <h2>Setup</h2>
+    <p>
+      The robots are ANYmal-C quadrupeds simulated in Isaac Sim / Isaac Lab, with no static obstacles, so
+      all the difficulty comes from robots avoiding each other. We train on <i>RandomN4</i> only and
+      evaluate on <i>RandomN3–N14</i> and on two harder "crossroads" layouts, <i>CrossN4</i> and <i>CrossN6</i>.
+      The workspace size stays the same, so bigger teams mean more crowding.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/sii2027/env_configs.png" alt="Sampling ranges for start and goal positions in each environment configuration" loading="lazy">
+      <figcaption>Start and goal sampling ranges for the RandomN, CrossN4 and CrossN6 configurations.</figcaption>
+    </figure>
+
+    <h2>Results</h2>
+    <p>
+      <b>Learning dynamics.</b> The baseline's reward rises fast and then plateaus. With communication the
+      reward climbs more slowly but ends higher, which suggests that communication lets the policy find
+      better navigation strategies.
+    </p>
+    <div class="pair">
+      <figure><img src="../assets/img/papers/sii2027/reward.png" alt="Average episodic reward, LC vs NC" loading="lazy"><figcaption>Average episodic reward.</figcaption></figure>
+      <figure><img src="../assets/img/papers/sii2027/noise.png" alt="Policy standard deviation over training, LC vs NC" loading="lazy"><figcaption>Policy standard deviation σ.</figcaption></figure>
+    </div>
+
+    <p><b>Success rate across team sizes.</b> LC = learned communication (ours), NC = no communication.</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Robots</th><th>LC</th><th>NC</th><th>Δ</th></tr></thead>
+      <tbody>
+        <tr><td>3</td><td>93.6</td><td>87.6</td><td>+6.0</td></tr>
+        <tr><td>4 (train)</td><td>87.1</td><td>80.3</td><td>+6.8</td></tr>
+        <tr><td>6</td><td>72.5</td><td>58.2</td><td>+14.3</td></tr>
+        <tr><td>8</td><td>56.7</td><td>35.5</td><td class="best">+21.2</td></tr>
+        <tr><td>10</td><td>34.2</td><td>15.5</td><td>+18.7</td></tr>
+        <tr><td>12</td><td>19.1</td><td>6.8</td><td>+12.3</td></tr>
+        <tr><td>14</td><td>9.9</td><td>2.1</td><td>+7.8</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>
+      The gap grows with team size. Per robot, our policy keeps above 90% success up to 8 robots, while
+      the baseline already falls below 90% at 6.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/sii2027/success_rates.png" alt="Per-robot success rate for 3 to 14 robots" loading="lazy">
+      <figcaption>Average per-robot success rate (mean ± std) for 3–14 robots.</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/img/papers/sii2027/cross_success.png" alt="Success rates on CrossN4 and CrossN6" loading="lazy">
+      <figcaption>The crossroads layouts are harder, but learned communication still beats the baseline.</figcaption>
+    </figure>
+
+    <p>
+      <b>Why do robots fail?</b> In the easier layouts most failed robots end up within 1 m of their goal,
+      so they simply ran out of time. In CrossN6, failed robots are still far from their goals, which
+      points to collisions.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/sii2027/distances.png" alt="Remaining distance distributions for failed robots" loading="lazy">
+      <figcaption>Remaining distance to goal for failed robots, with and without near-goal cases (&lt; 1 m).</figcaption>
+    </figure>
+
+    <p>
+      <b>What do the messages look like?</b> Robots learn curved paths that steer around each other.
+      A UMAP projection of their messages forms continuous, line-like structures: messages move smoothly
+      as the episode unfolds, so they carry temporally coherent information rather than noise.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/sii2027/examples.png" alt="Trajectories and UMAP embeddings of messages for CrossN4 and CrossN6 episodes" loading="lazy">
+      <figcaption>CrossN4 and CrossN6 episodes: robot trajectories next to UMAP embeddings of their messages, colored by agent.</figcaption>
+    </figure>
+
+  </main>
+</body>
+</html>

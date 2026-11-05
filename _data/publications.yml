@@ -1,0 +1,29 @@
+main:
+
+  - title: Learned Communication for Continuous Multi-Robot Motion Planning
+    authors: <strong>Volkan Ün</strong>, Jonas Schulz, Martin Lelis, Juan A. Cabrera, Stefanie Speidel, Frank H. P. Fitzek
+    conference_short: SII
+    conference: IEEE/SICE International Symposium on System Integration <strong>(SII)</strong>, 2027.
+    page: ./papers/learned-communication.html
+    image: ./assets/img/sii2027.jpg
+
+  - title: "Spiking Actor-Critic for Quadruped Locomotion: Spike Encoding Schemes Compared"
+    authors: <strong>Volkan Ün</strong>, Juan A. Cabrera, Frank H. P. Fitzek
+    conference_short: ISOCC
+    conference: International SoC Conference <strong>(ISOCC)</strong>, 2026.
+    page: ./papers/spiking-quadruped-locomotion.html
+    image: ./assets/img/isocc2026.jpg
+    notes: ETRI Best Paper Award
+
+  - title: A Hybrid Spiking Neural Network for Event-Based Continuous Robot Control
+    authors: <strong>Volkan Ün</strong>, Juan A. Cabrera, Frank H. P. Fitzek
+    conference_short: SOCC
+    conference: IEEE International System-on-Chip Conference <strong>(SOCC)</strong>, 2026.
+    page: ./papers/hybrid-snn-event-control.html
+    image: ./assets/img/socc2026.jpg
+
+  - title: "Predicting long-term outcome in anorexia nervosa: a machine learning analysis of brain structure at different stages of weight recovery"
+    authors: Dominic Arold, Fabio Bernardoni, Daniel Geisler, Arne Doose, <strong>Volkan Ün</strong>, Ilka Boehm, Veit Roessner, Joseph A. King, Stefan Ehrlich
+    conference_short: Psychol. Med.
+    conference: <strong>Psychological Medicine</strong>, 2023.
+    doi: https://doi.org/10.1017/S0033291723001861

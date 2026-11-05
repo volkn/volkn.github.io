@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hybrid SNN for Event-Based Control</title>
+  <meta name="description" content="A spiking vision encoder on event-camera data combined with a conventional motion planner for continuous robot control.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/paper.css">
+</head>
+<body>
+  <main class="wrap paper">
+    <a class="back" href="../index.html">← Volkan Ün</a>
+    <h1>A Hybrid Spiking Neural Network for Event-Based Continuous Robot Control</h1>
+    <p class="authors"><b>Volkan Ün</b>, Juan A. Cabrera, Frank H. P. Fitzek</p>
+    <p class="venue">2026 IEEE 39th International System-on-Chip Conference (SOCC 2026)</p>
+
+    <figure>
+      <img src="../assets/img/socc2026.jpg" alt="Event images go through a spiking vision encoder, are combined with sensor observations, and a motion planner outputs control actions for a JetBot among red obstacles">
+      <figcaption>The hybrid architecture, with an example sequence of event images below.</figcaption>
+    </figure>
+
+    <h2>Summary</h2>
+    <p>
+      Event cameras report only the pixels that change, and spiking neural networks (SNNs) compute only when
+      spikes arrive, so both are naturally sparse and energy-efficient. Whether the two together can drive a
+      robot in closed loop had not been tested. We built a <b>hybrid</b> policy for a JetBot that has to reach
+      a goal while avoiding obstacles. An SNN reads the event stream, and an ordinary neural network turns
+      what it sees into motor commands.
+    </p>
+
+    <h2>Method</h2>
+    <p>
+      <b>Event camera.</b> Isaac Lab has no native event-camera simulation, so we generate events from
+      consecutive RGB frames. Each pixel's change in log brightness is thresholded into positive and
+      negative events, which gives a two-channel binary image.
+    </p>
+    <p>
+      <b>Spiking vision encoder.</b> Convolutional layers with Leaky Integrate-and-Fire (LIF) neurons, followed by
+      a fully connected projection. The convolutions capture spatial structure, and the membrane dynamics
+      integrate information over time. The binary event frames feed straight in, because they are already
+      spikes. The output is a binary latent vector.
+    </p>
+    <p>
+      <b>Motion planning module.</b> A three-layer network with ELU activations. It takes the spiking
+      latent together with low-dimensional state (pose, velocity, goal) and outputs continuous wheel
+      commands. Images suit spikes and small state vectors suit a normal network, which is why the policy
+      is split this way.
+    </p>
+    <p>
+      The whole policy is trained end-to-end with PPO in Isaac Lab. At inference, membrane potentials
+      carry over from one step to the next, so the encoder streams naturally without recomputing the past.
+      This property is a good fit for neuromorphic hardware.
+    </p>
+
+    <h2>Results</h2>
+    <p>
+      We compared four policies: Hybrid SNN with 4 or 2 convolutional layers, and two non-spiking
+      baselines, one on RGB images and one on event images. All four converge stably. They all learn to
+      avoid obstacles, with collision contact around 0.01–0.04, and they all learn to face the goal.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/socc2026/reward.png" alt="Training curves of total reward and five reward components for four architectures" loading="lazy">
+      <figcaption>Total reward and its five components during training.</figcaption>
+    </figure>
+    <p>
+      Across ten unseen scenarios of 100 episodes each, the RGB baseline is the strongest (90–100% success).
+      The <b>Hybrid SNN (2-Conv)</b> improves with training to 78–94% while keeping collision rates
+      comparable to the non-spiking models. Given its smaller size and spike-based computation, this is an
+      attractive trade-off for power-constrained deployment.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/socc2026/success_collision.png" alt="Success and collision rates across ten scenarios at 10k and 15k steps" loading="lazy">
+      <figcaption>Success and collision rates across scenarios S1–S10 at 10k and 15k training steps.</figcaption>
+    </figure>
+    <p>
+      The example below is an episode where the non-spiking model fails on the same layout. The hybrid
+      model reaches the goal on a smooth path, without sharp turns or oscillation.
+    </p>
+    <figure>
+      <img src="../assets/img/papers/socc2026/trajectory.png" alt="Trajectory of the robot around obstacles with event-camera snapshots along the edges" loading="lazy">
+      <figcaption>Trajectory of the event-based hybrid model, with event-camera snapshots along the way.</figcaption>
+    </figure>
+
+  </main>
+</body>
+</html>
